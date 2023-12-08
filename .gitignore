@@ -1,0 +1,4 @@
+#Configuration files
+.idea
+application/config/admin.php
+application/config/db.php
