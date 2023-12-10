@@ -52,7 +52,7 @@ class ContactController extends Controller
                 $this->view->message($this->model->error);
             }
             $this->model->editContact($_POST, $this->route['id']);
-            [$editedContacts, $addedContacts] = split_contacts_edited_new($_POST['phone']);
+            [$editedContacts, $addedContacts] = split_contact_phones_edited_new($_POST['phone']);
             $users_phones_model->editContactPhone($editedContacts, $this->route['id']);
             $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
             $this->view->location('/contact');

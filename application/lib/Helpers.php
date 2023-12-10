@@ -2,7 +2,7 @@
 
 //namespace application\lib;
 
-function split_contacts_edited_new($contacts)
+function split_contact_phones_edited_new($contacts)
 {
     $editContacts = [];
     $addedContacts = [];
