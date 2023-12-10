@@ -38,6 +38,9 @@ class UserController extends Controller
             if (!$this->model->userValidate($_POST)) {
                 $this->view->message('Error', $this->model->error);
             }
+            if ($this->model->userExists($_POST)) {
+                $this->view->message('Error', 'User with such an email already exists!');
+            }
             $id = $this->model->userCreate($_POST);
             if (!$id) {
                 $this->view->message('Error', 'Request processing went wrong!');

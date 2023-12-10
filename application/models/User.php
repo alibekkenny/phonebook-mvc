@@ -52,7 +52,16 @@ class User extends Model
             'email' => $post['email'],
             'password' => $post['password']
         ];
+
         $this->db->query('INSERT INTO users VALUES(:id, :name, :email, :password)', $params);
         return $this->db->lastInsertId();
+    }
+
+    public function userExists($post)
+    {
+        $params = [
+            'email' => $post['email']
+        ];
+        return $this->db->column('SELECT id FROM users WHERE email = :email', $params);
     }
 }
