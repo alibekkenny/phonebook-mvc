@@ -24,13 +24,18 @@ class ContactController extends Controller
     {
         if (!empty($_POST)) {
             if (!$this->model->contactValidate($_POST)) {
-                $this->view->message("Error", $this->model->error);
+                $this->view->message('Error', $this->model->error);
             }
             $contact_id = $this->model->addContact($_POST);
             if (!$contact_id) {
                 $this->view->message('Error', 'Faced some problems trying to create a new contact!');
             }
             $contactPhoneModel = new ContactPhone;
+            foreach ($_POST['phone'] as $key => $value) {
+                if (!$contactPhoneModel->validateContactPhone($value)) {
+                    $this->view->message('Error', $contactPhoneModel->error);
+                }
+            }
             $user_phones_created = $contactPhoneModel->addContactPhone($_POST['phone'], $contact_id);
             if (!$user_phones_created) {
                 $this->view->message('Error', 'Faced some problems trying to create a new contact!');
@@ -52,6 +57,11 @@ class ContactController extends Controller
                 $this->view->message($this->model->error);
             }
             $this->model->editContact($_POST, $this->route['id']);
+            foreach ($_POST['phone'] as $key => $value) {
+                if (!$users_phones_model->validateContactPhone($value)) {
+                    $this->view->message('Error', $users_phones_model->error);
+                }
+            }
             [$editedContacts, $addedContacts] = split_contact_phones_edited_new($_POST['phone']);
             $users_phones_model->editContactPhone($editedContacts, $this->route['id']);
             $users_phones_model->addContactPhone($addedContacts, $this->route['id']);

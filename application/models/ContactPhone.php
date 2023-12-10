@@ -6,6 +6,22 @@ use application\core\Model;
 
 class ContactPhone extends Model
 {
+    public $error;
+
+    public function validateContactPhone($phone)
+    {
+        $nameLen = iconv_strlen($phone['category']);
+        $phoneLen = iconv_strlen($phone['number']);
+        if ($nameLen < 3 or $nameLen > 50) {
+            $this->error = "Contact category should consist of 3 to 50 symbols!";
+            return false;
+        } else if (!filter_var($phone['number'], FILTER_SANITIZE_NUMBER_INT) or ($phoneLen < 4 or $phoneLen > 12)) {
+            $this->error = "Not correct format of phone number!";
+            return false;
+        }
+        return true;
+    }
+
     public function getContactPhones($phone_book_id)
     {
         $params = [
