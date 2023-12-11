@@ -17,7 +17,7 @@ class Contact extends Model
         return $this->db->column("SELECT id FROM users_phone_book WHERE id = :id and user_id = :user_id", $params);
     }
 
-    public function contactValidate($post)
+    public function contactValidate($post, $users_phones_model)
     {
         $nameLen = iconv_strlen($post['contact_name']);
 //        $phoneLen = iconv_strlen($post['phone']);
@@ -25,10 +25,15 @@ class Contact extends Model
             $this->error = "Name should consist of 3 to 50 symbols!";
             return false;
         }
-//       else if (!filter_var($post['phone'], FILTER_SANITIZE_NUMBER_INT) or ($phoneLen < 10 or $phoneLen > 12)) {
-//            $this->error = "Not correct format of phone number!";
-//            return false;
-//        }
+        if (isset($post['phone'])) {
+            foreach ($post['phone'] as $key => $value) {
+                if (!$users_phones_model->validateContactPhone($value)) {
+                    $this->error = $users_phones_model->error;
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -60,7 +65,10 @@ class Contact extends Model
         $params = [
             'id' => $id
         ];
-        return $this->db->row("SELECT * FROM users_phone_book WHERE id=:id", $params);
+        $contact = $this->db->row("SELECT * FROM users_phone_book WHERE id=:id", $params)[0];
+        $users_phones_model = new ContactPhone;
+        $contact['phone'] = $users_phones_model->getContactPhones($id);
+        return $contact;
     }
 
     public function getContactsByUserId($user_id)
@@ -68,11 +76,18 @@ class Contact extends Model
         $params = [
             'user_id' => $user_id
         ];
-        return $this->db->row("SELECT * FROM users_phone_book WHERE user_id=:user_id", $params);
+        $phone_book = $this->db->row("SELECT * FROM users_phone_book WHERE user_id=:user_id", $params);
+        $users_phones_model = new ContactPhone;
+        foreach ($phone_book as $key => $value) {
+            $phone_book[$key]['phone'] = $users_phones_model->getContactPhones($value['id']);
+        }
+        return $phone_book;
     }
 
     public function deleteContact($id)
     {
+        $contactPhoneModel = new ContactPhone;
+        $contactPhoneModel->deleteContactPhonesByContactId($id);
         $params = [
             'id' => $id
         ];

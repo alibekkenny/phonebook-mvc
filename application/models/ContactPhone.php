@@ -72,4 +72,12 @@ class ContactPhone extends Model
         ];
         return $this->db->query('DELETE FROM users_phones WHERE id =:id;', $params);
     }
+
+    public function contactPhoneExists($id)
+    {
+        $params = [
+            'id' => $id,
+        ];
+        return $this->db->column('SELECT id FROM users_phones WHERE id =:id;', $params);
+    }
 }

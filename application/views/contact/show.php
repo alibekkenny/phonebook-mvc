@@ -2,11 +2,11 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Additional info</th>
-        <th scope="col">Actions</th>
+        <th scope="col" class="col-sm-1">ID</th>
+        <th scope="col" class="col-sm-2">Name</th>
+        <th scope="col" class="col-sm-3">Phone</th>
+        <th scope="col" class="col-sm-4">Additional info</th>
+        <th scope="col" class="col-sm-2">Actions</th>
     </tr>
     </thead>
     <tbody>

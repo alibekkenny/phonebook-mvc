@@ -33,5 +33,8 @@ return [
         'controller' => 'contact',
         'action' => 'delete',
     ],
-
+    'contact/phone/delete/{id:\d+}' => [
+        'controller' => 'contact',
+        'action' => 'deleteContactPhone',
+    ],
 ];

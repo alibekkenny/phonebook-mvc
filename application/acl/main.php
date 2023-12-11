@@ -2,10 +2,10 @@
 
 return [
     'all' => [
-
+        'index',
     ],
     'authorize' => [
-        'index'
+
     ],
     'guest' => [
 

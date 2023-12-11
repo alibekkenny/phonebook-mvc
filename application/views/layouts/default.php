@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="d-flex align-items-center">
-                <?php if (!$_SESSION['authorize']['id']) { ?>
+                <?php if (!isset($_SESSION['authorize']['id'])) { ?>
                     <a class="nav-link text-white" href="/login">Login</a>
                 <?php } else { ?>
                     <a class="nav-link text-white" href="/logout">Logout</a>

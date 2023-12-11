@@ -10,10 +10,6 @@ class ContactController extends Controller
     public function showAction()
     {
         $phone_book = $this->model->getContactsByUserId($_SESSION['authorize']['id']);
-        $users_phones_model = new ContactPhone;
-        foreach ($phone_book as $key => $value) {
-            $phone_book[$key]['phone'] = $users_phones_model->getContactPhones($value['id']);
-        }
         $vars = [
             'phone_book' => $phone_book,
         ];
@@ -23,22 +19,20 @@ class ContactController extends Controller
     public function addAction()
     {
         if (!empty($_POST)) {
-            if (!$this->model->contactValidate($_POST)) {
+            $contactPhoneModel = new ContactPhone;
+            if (!$this->model->contactValidate($_POST, $contactPhoneModel)) {
                 $this->view->message('Error', $this->model->error);
             }
             $contact_id = $this->model->addContact($_POST);
             if (!$contact_id) {
                 $this->view->message('Error', 'Faced some problems trying to create a new contact!');
             }
-            $contactPhoneModel = new ContactPhone;
-            foreach ($_POST['phone'] as $key => $value) {
-                if (!$contactPhoneModel->validateContactPhone($value)) {
-                    $this->view->message('Error', $contactPhoneModel->error);
+            if (isset($_POST['phone'])) {
+
+                $user_phones_created = $contactPhoneModel->addContactPhone($_POST['phone'], $contact_id);
+                if (!$user_phones_created) {
+                    $this->view->message('Error', 'Faced some problems trying to create a new contact!');
                 }
-            }
-            $user_phones_created = $contactPhoneModel->addContactPhone($_POST['phone'], $contact_id);
-            if (!$user_phones_created) {
-                $this->view->message('Error', 'Faced some problems trying to create a new contact!');
             }
             $this->view->location('/contact');
         }
@@ -53,22 +47,19 @@ class ContactController extends Controller
         $users_phones_model = new ContactPhone;
         if (!empty($_POST)) {
 //            $this->view->message("test", $_POST['phone'][2]['id']);
-            if (!$this->model->contactValidate($_POST)) {
+            if (!$this->model->contactValidate($_POST, $users_phones_model)) {
                 $this->view->message($this->model->error);
             }
             $this->model->editContact($_POST, $this->route['id']);
-            foreach ($_POST['phone'] as $key => $value) {
-                if (!$users_phones_model->validateContactPhone($value)) {
-                    $this->view->message('Error', $users_phones_model->error);
-                }
+            if (isset($_POST['phone'])) {
+                [$editedContacts, $addedContacts] = split_contact_phones_edited_new($_POST['phone']);
+                $users_phones_model->editContactPhone($editedContacts, $this->route['id']);
+                $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
             }
-            [$editedContacts, $addedContacts] = split_contact_phones_edited_new($_POST['phone']);
-            $users_phones_model->editContactPhone($editedContacts, $this->route['id']);
-            $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
             $this->view->location('/contact');
         }
-        $contact = $this->model->getContact($this->route['id'])[0];
-        $contact['phone'] = $users_phones_model->getContactPhones($this->route['id']);
+        $contact = $this->model->getContact($this->route['id']);
+
         $vars = [
             'data' => $contact,
         ];
@@ -80,9 +71,17 @@ class ContactController extends Controller
         if (!$this->model->contactExists($this->route['id'], $_SESSION['authorize']['id'])) {
             $this->view->errorCode(404);
         }
-        $contactPhoneModel = new ContactPhone;
-        $contactPhoneModel->deleteContactPhonesByContactId($this->route['id']);
         $this->model->deleteContact($this->route['id']);
         $this->view->redirect('contact');
+    }
+
+    public function deleteContactPhoneAction()
+    {
+        $contactPhoneModel = new ContactPhone;
+        if (!$contactPhoneModel->contactPhoneExists($this->route['id'])) {
+            $this->view->errorCode(404);
+        }
+        $contactPhoneModel->deleteContactPhone($this->route['id']);
+//        $this->view->redirect('contact');
     }
 }
