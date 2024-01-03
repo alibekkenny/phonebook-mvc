@@ -36,7 +36,12 @@ class User extends Model
         $vars = [
             'email' => $post['email'],
         ];
-        $loginData = $this->db->row("SELECT * FROM users WHERE email=:email;", $vars)[0];
+        $loginData = $this->db->row("SELECT * FROM users WHERE email=:email;", $vars);
+        if (empty($loginData)) {
+            $this->error = "Email or password is incorrect!";
+            return false;
+        }
+        $loginData = $loginData[0];
         if ($loginData['email'] == $post['email'] && $loginData['password'] == $post['password']) {
             return $loginData['id'];
         }
