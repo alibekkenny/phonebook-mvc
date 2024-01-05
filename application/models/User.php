@@ -32,6 +32,9 @@ class User extends Model
         if ($emailLen < 3 or $emailLen > 50 or $passwordLen < 3 or $passwordLen > 50) {
             $this->error = "Email or password is not valid!";
             return false;
+        } else if (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->error = "Email is not valid!";
+            return false;
         }
         $vars = [
             'email' => $post['email'],
@@ -47,6 +50,19 @@ class User extends Model
         }
         $this->error = "Email or password is incorrect!";
         return false;
+    }
+
+    public function getUsers()
+    {
+        return $this->db->row('SELECT * FROM users');
+    }
+
+    public function getUserById($id)
+    {
+        $params = [
+            'id' => $id,
+        ];
+        return $this->db->row('SELECT * FROM users WHERE id = :id', $params);
     }
 
     public function userCreate($post)

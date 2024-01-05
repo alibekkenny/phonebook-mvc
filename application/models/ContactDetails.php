@@ -4,7 +4,7 @@ namespace application\models;
 
 use application\core\Model;
 
-class ContactPhone extends Model
+class ContactDetails extends Model
 {
     public $error;
 
@@ -22,12 +22,45 @@ class ContactPhone extends Model
         return true;
     }
 
+    public function phoneValidate($post)
+    {
+        $phoneLen = iconv_strlen($post['phone_number']);
+        if ($post['phone_category'] == 1) {
+            if (!filter_var($post['phone_number'], FILTER_VALIDATE_EMAIL)) {
+                $this->error = "Not correct format of email!";
+                return false;
+            }
+        } else if ($post['phone_category'] == 4) {
+            if (!filter_var($post['phone_number'], FILTER_SANITIZE_NUMBER_INT) or ($phoneLen != 6 and $phoneLen != 7 and $phoneLen != 11 and $phoneLen != 12)) {
+                $this->error = "Not correct format of home phone!";
+                return false;
+            }
+        } else {
+            if (!filter_var($post['phone_number'], FILTER_SANITIZE_NUMBER_INT) or ($phoneLen != 11 and $phoneLen != 12)) {
+                $this->error = "Not correct format of phone number!";
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function addPhone($post, $phone_book_id)
+    {
+        $params = [
+            'phone_category_id' => $post['phone_category'],
+            'phone' => $post['phone_number'],
+            'phone_book_id' => $phone_book_id,
+        ];
+        $this->db->query("INSERT INTO users_phones(phone, phone_category_id, phone_book_id) VALUES (:phone, :phone_category_id, :phone_book_id);", $params);
+        return true;
+    }
+
     public function getContactPhones($phone_book_id)
     {
         $params = [
             'phone_book_id' => $phone_book_id,
         ];
-        return $this->db->row('SELECT * FROM users_phones WHERE phone_book_id = :phone_book_id', $params);
+        return $this->db->row('SELECT users_phones.id as "id",  users_phones.phone as "phone", users_phones.phone_book_id as "phone_book_id", pc.category as "category" FROM users_phones LEFT JOIN phone_categories pc on pc.id = users_phones.phone_category_id WHERE phone_book_id = :phone_book_id', $params);
     }
 
     public function addContactPhone($phones, $phone_book_id)

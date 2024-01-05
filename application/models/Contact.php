@@ -66,9 +66,19 @@ class Contact extends Model
             'id' => $id
         ];
         $contact = $this->db->row("SELECT * FROM users_phone_book WHERE id=:id", $params)[0];
-        $users_phones_model = new ContactPhone;
+        $users_phones_model = new ContactDetails;
         $contact['phone'] = $users_phones_model->getContactPhones($id);
         return $contact;
+    }
+
+    public function getContacts()
+    {
+        $contacts = $this->db->row('SELECT * FROM users_phone_book');
+        $users_phones_model = new ContactDetails;
+        foreach ($contacts as $key => $value) {
+            $contacts[$key]['phone'] = $users_phones_model->getContactPhones($value['id']);
+        }
+        return $contacts;
     }
 
     public function getContactsByUserId($user_id)
@@ -77,7 +87,7 @@ class Contact extends Model
             'user_id' => $user_id
         ];
         $phone_book = $this->db->row("SELECT * FROM users_phone_book WHERE user_id=:user_id", $params);
-        $users_phones_model = new ContactPhone;
+        $users_phones_model = new ContactDetails;
         foreach ($phone_book as $key => $value) {
             $phone_book[$key]['phone'] = $users_phones_model->getContactPhones($value['id']);
         }
@@ -86,11 +96,13 @@ class Contact extends Model
 
     public function deleteContact($id)
     {
-        $contactPhoneModel = new ContactPhone;
+        $contactPhoneModel = new ContactDetails;
         $contactPhoneModel->deleteContactPhonesByContactId($id);
         $params = [
             'id' => $id
         ];
         $this->db->query("DELETE FROM users_phone_book WHERE id=:id", $params);
     }
+
+
 }

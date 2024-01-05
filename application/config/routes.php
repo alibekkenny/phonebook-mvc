@@ -37,4 +37,36 @@ return [
         'controller' => 'contact',
         'action' => 'deleteContactPhone',
     ],
+    'contact/{id:\d+}/phone/add' => [
+        'controller' => 'contact',
+        'action' => 'addPhone',
+    ],
+    'admin' => [
+        'controller' => 'admin',
+        'action' => 'index',
+    ],
+    'admin/login' => [
+        'controller' => 'admin',
+        'action' => 'login',
+    ],
+    'admin/user/edit/{id:\d+}' => [
+        'controller' => 'admin',
+        'action' => 'userEdit',
+    ],
+    'admin/user/delete/{id:\d+}' => [
+        'controller' => 'admin',
+        'action' => 'userDelete',
+    ],
+    'admin/user/{id:\d+}/contact' => [
+        'controller' => 'admin',
+        'action' => 'showUsersContacts'
+    ],
+    'admin/contact' => [
+        'controller' => 'admin',
+        'action' => 'showContacts'
+    ],
+    'admin/logout' => [
+        'controller' => 'admin',
+        'action' => 'logout',
+    ]
 ];

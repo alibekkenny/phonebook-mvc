@@ -18,3 +18,9 @@ CREATE TABLE users_phones (
     phone VARCHAR(12),
     phone_book_id INT REFERENCES users_phone_book(id)
 );
+
+CREATE TABLE phone_categories(
+                                 id INT PRIMARY KEY AUTO_INCREMENT,
+                                 category VARCHAR(30)
+);
+

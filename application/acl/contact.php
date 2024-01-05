@@ -9,7 +9,8 @@ return [
         'show',
         'edit',
         'delete',
-        'deleteContactPhone'
+        'deleteContactPhone',
+        'addPhone',
     ],
     'guest' => [
 
