@@ -15,8 +15,9 @@
             <th scope="row"><?= $value['id'] ?></th>
             <td><?= $value['name'] ?></td>
             <td>
-                <a class="btn px-3 py-1 btn-primary" href="/contact/<?= $value['id'] ?>/phone/add">Add
-                    new source</a><br>
+                <!--                <a class="btn px-3 py-1 btn-primary" href="/contact/-->
+                <?php //= $value['id'] ?><!--/phone/add">Add-->
+                <!--                    new source</a><br>-->
                 <?php foreach ($value['phone'] as $key => $phone) {
                     echo $phone['category'] . ' - ' . $phone['phone'] . '<br>';
                 } ?></td>

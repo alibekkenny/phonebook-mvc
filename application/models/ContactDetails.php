@@ -22,6 +22,16 @@ class ContactDetails extends Model
         return true;
     }
 
+//    public function manyPhonesValidate($post)
+//    {
+//        foreach ($post as $key => $value) {
+//            if (!$this->phoneValidate($post[$key])) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
     public function phoneValidate($post)
     {
         $phoneLen = iconv_strlen($post['phone_number']);
@@ -31,7 +41,7 @@ class ContactDetails extends Model
                 return false;
             }
         } else if ($post['phone_category'] == 4) {
-            if (!filter_var($post['phone_number'], FILTER_SANITIZE_NUMBER_INT) or ($phoneLen != 6 and $phoneLen != 7 and $phoneLen != 11 and $phoneLen != 12)) {
+            if (!filter_var($post['phone_number'], FILTER_SANITIZE_NUMBER_INT) or (($phoneLen < 5 or $phoneLen > 7) and ($phoneLen < 11 or $phoneLen > 12))) {
                 $this->error = "Not correct format of home phone!";
                 return false;
             }
@@ -60,7 +70,7 @@ class ContactDetails extends Model
         $params = [
             'phone_book_id' => $phone_book_id,
         ];
-        return $this->db->row('SELECT users_phones.id as "id",  users_phones.phone as "phone", users_phones.phone_book_id as "phone_book_id", pc.category as "category" FROM users_phones LEFT JOIN phone_categories pc on pc.id = users_phones.phone_category_id WHERE phone_book_id = :phone_book_id', $params);
+        return $this->db->row('SELECT users_phones.id as "id",  users_phones.phone as "phone", users_phones.phone_book_id as "phone_book_id", pc.category as "category", pc.id as "category_id" FROM users_phones LEFT JOIN phone_categories pc on pc.id = users_phones.phone_category_id WHERE phone_book_id = :phone_book_id', $params);
     }
 
     public function addContactPhone($phones, $phone_book_id)
@@ -82,10 +92,10 @@ class ContactDetails extends Model
         foreach ($phones as $key => $value) {
             $params = [
                 'id' => $value['id'],
-                'phone' => $value['number'],
-                'name' => $value['category'],
+                'phone' => $value['phone_number'],
+                'phone_category_id' => $value['phone_category'],
             ];
-            $this->db->query('UPDATE users_phones SET phone = :phone, name = :name WHERE id = :id;', $params);
+            $this->db->query('UPDATE users_phones SET phone = :phone, phone_category_id = :phone_category_id WHERE id = :id;', $params);
         }
         return true;
     }

@@ -17,6 +17,14 @@ class Contact extends Model
         return $this->db->column("SELECT id FROM users_phone_book WHERE id = :id and user_id = :user_id", $params);
     }
 
+    public function contactExistsById($id)
+    {
+        $params = [
+            'id' => $id,
+        ];
+        return $this->db->column("SELECT id FROM users_phone_book WHERE id = :id", $params);
+    }
+
     public function contactValidate($post, $users_phones_model)
     {
         $nameLen = iconv_strlen($post['contact_name']);
@@ -27,7 +35,7 @@ class Contact extends Model
         }
         if (isset($post['phone'])) {
             foreach ($post['phone'] as $key => $value) {
-                if (!$users_phones_model->validateContactPhone($value)) {
+                if (!$users_phones_model->phoneValidate($value)) {
                     $this->error = $users_phones_model->error;
                     return false;
                 }

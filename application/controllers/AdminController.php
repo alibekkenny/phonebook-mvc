@@ -4,6 +4,8 @@ namespace application\controllers;
 
 use application\core\Controller;
 use application\models\Contact;
+use application\models\ContactDetails;
+use application\models\PhoneCategory;
 use application\models\User;
 
 class AdminController extends Controller
@@ -57,6 +59,48 @@ class AdminController extends Controller
             'user' => $userModel->getUserById($user_id)[0],
         ];
         $this->view->render('Edit user', $vars);
+    }
+
+    public function contactEditAction()
+    {
+        $contactModel = new Contact;
+        if (!$contactModel->contactExistsById($this->route['id'])) {
+            $this->view->errorCode(404);
+        }
+        $users_phones_model = new ContactDetails;
+        $categoryModel = new PhoneCategory;
+        if (!empty($_POST)) {
+            if (!$contactModel->contactValidate($_POST, $users_phones_model)) {
+                $this->view->message('Error', $contactModel->error);
+            }
+            $contactModel->editContact($_POST, $this->route['id']);
+            if (isset($_POST['phone'])) {
+//                [$editedContacts, $addedContacts] = split_contact_phones_edited_new($_POST['phone']);
+//                if (!$users_phones_model->manyPhonesValidate($_POST['phone'])) {
+//                    $this->view->message('Error', $users_phones_model->error);
+//                }
+                $users_phones_model->editContactPhone($_POST['phone'], $this->route['id']);
+//                $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
+            }
+            $this->view->location('/admin/contact');
+        }
+        $contact = $contactModel->getContact($this->route['id']);
+        $categories = $categoryModel->getCategories();
+        $vars = [
+            'data' => $contact,
+            'categories' => $categories,
+        ];
+        $this->view->render("Edit contact", $vars);
+    }
+
+    public function deleteContactPhoneAction()
+    {
+        $contactPhoneModel = new ContactDetails;
+        if (!$contactPhoneModel->contactPhoneExists($this->route['id'])) {
+            $this->view->errorCode(404);
+        }
+        $contactPhoneModel->deleteContactPhone($this->route['id']);
+//        $this->view->redirect('contact');
     }
 
     public function userDeleteAction()

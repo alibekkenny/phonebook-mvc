@@ -46,6 +46,7 @@ class ContactController extends Controller
             $this->view->errorCode(404);
         }
         $users_phones_model = new ContactDetails;
+        $categoryModel = new PhoneCategory;
         if (!empty($_POST)) {
 //            $this->view->message("test", $_POST['phone'][2]['id']);
             if (!$this->model->contactValidate($_POST, $users_phones_model)) {
@@ -53,16 +54,20 @@ class ContactController extends Controller
             }
             $this->model->editContact($_POST, $this->route['id']);
             if (isset($_POST['phone'])) {
-                [$editedContacts, $addedContacts] = split_contact_phones_edited_new($_POST['phone']);
-                $users_phones_model->editContactPhone($editedContacts, $this->route['id']);
-                $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
+//                [$editedContacts, $addedContacts] = split_contact_phones_edited_new($_POST['phone']);
+//                if (!$users_phones_model->manyPhonesValidate($_POST['phone'])) {
+//                    $this->view->message('Error', $users_phones_model->error);
+//                }
+                $users_phones_model->editContactPhone($_POST['phone'], $this->route['id']);
+//                $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
             }
             $this->view->location('/contact');
         }
         $contact = $this->model->getContact($this->route['id']);
-
+        $categories = $categoryModel->getCategories();
         $vars = [
             'data' => $contact,
+            'categories' => $categories,
         ];
         $this->view->render("Edit contact", $vars);
     }

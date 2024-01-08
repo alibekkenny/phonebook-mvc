@@ -65,6 +65,10 @@ return [
         'controller' => 'admin',
         'action' => 'showContacts'
     ],
+    'admin/contact/edit/{id:\d+}' => [
+        'controller' => 'admin',
+        'action' => 'contactEdit',
+    ],
     'admin/logout' => [
         'controller' => 'admin',
         'action' => 'logout',

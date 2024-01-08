@@ -3,7 +3,7 @@
     <div class="card card-login mx-auto mt-5 w-50">
         <h5 class="card-header py-3 ">Edit contact</h5>
         <div class="card-body">
-            <form action="/contact/edit/<?= $data['id'] ?>" method="post">
+            <form action="/admin/contact/edit/<?= $data['id'] ?>" method="post">
                 <div class="form-group">
                     <label>Contact name</label>
                     <input class="form-control" placeholder="Name" type="text" name="contact_name"
@@ -16,10 +16,10 @@
                               name="description"><?= $data['description'] ?></textarea>
                 </div>
                 <div id="for_numbers">
-                    <a class="mt-2 btn form-control btn-primary text-white"
-                       href="/contact/<?= $data['id'] ?>/phone/add">
-                        Add phone number
-                    </a>
+                    <!--                    <a class="mt-2 btn form-control btn-primary text-white"-->
+                    <!--                       href="/contact/--><?php //= $data['id'] ?><!--/phone/add">-->
+                    <!--                        Add phone number-->
+                    <!--                    </a>-->
                     <!--                    <a class="btn px-3 py-1 btn-primary" href="/contact/-->
                     <?php //= $value['id'] ?><!--/phone/add">Add-->
                     <!--                        new source</a><br>-->
@@ -58,7 +58,7 @@
                 </div>
                 <button type="submit" class="btn btn-success btn-block w-100 mt-3">Apply changes</button>
             </form>
-            <a class="btn btn-danger px-4 mt-2 w-100" href="/contact">Cancel</a>
+            <!--            <a class="btn btn-danger px-4 mt-2 w-100" href="/contact">Cancel</a>-->
         </div>
     </div>
 </div>
