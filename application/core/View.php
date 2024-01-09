@@ -7,16 +7,19 @@ class View
     public $path;
     public $route;
     public $layout = 'default';
+    public $language;
 
     public function __construct($route)
     {
         $this->route = $route;
         $this->path = $route['controller'] . '/' . $route['action'];
-
+        $this->language = new Language();
+        $this->language->LoadLanguageValues('en');
     }
 
     public function render($title, $vars = [])
     {
+        $vars = array_merge($vars, ['language' => $this->language]);
         extract($vars);
         $path = 'application/views/' . $this->path . '.php';
         if (file_exists($path)) {

@@ -1,24 +1,24 @@
 <div class="container">
 
     <div class="card card-login mx-auto mt-5 w-50">
-        <h5 class="card-header py-3 ">Edit contact</h5>
+        <h5 class="card-header py-3 "><?= $language->GetVar('edit_contact') ?></h5>
         <div class="card-body">
             <form action="/contact/edit/<?= $data['id'] ?>" method="post">
                 <div class="form-group">
-                    <label>Contact name</label>
+                    <label><?= $language->GetVar('contact_name') ?></label>
                     <input class="form-control" placeholder="Name" type="text" name="contact_name"
                            value="<?= $data['name'] ?>">
                 </div>
 
                 <div class="form-group mt-1">
-                    <label>Description</label>
+                    <label><?= $language->GetVar('desc') ?></label>
                     <textarea class="form-control" placeholder="Lorem ipsum dolor..." rows="3" type="text"
                               name="description"><?= $data['description'] ?></textarea>
                 </div>
                 <div id="for_numbers">
                     <a class="mt-2 btn form-control btn-primary text-white"
                        href="/contact/<?= $data['id'] ?>/phone/add">
-                        Add phone number
+                        <?= $language->GetVar('add_phone') ?>
                     </a>
                     <!--                    <a class="btn px-3 py-1 btn-primary" href="/contact/-->
                     <?php //= $value['id'] ?><!--/phone/add">Add-->
@@ -56,9 +56,10 @@
                         </div>
                     <?php } ?>
                 </div>
-                <button type="submit" class="btn btn-success btn-block w-100 mt-3">Apply changes</button>
+                <button type="submit"
+                        class="btn btn-success btn-block w-100 mt-3"><?= $language->GetVar('save') ?></button>
             </form>
-            <a class="btn btn-danger px-4 mt-2 w-100" href="/contact">Cancel</a>
+            <a class="btn btn-danger px-4 mt-2 w-100" href="/contact"><?= $language->GetVar('cancel') ?></a>
         </div>
     </div>
 </div>

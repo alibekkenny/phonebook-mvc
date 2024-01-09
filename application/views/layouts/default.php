@@ -17,20 +17,28 @@
             <a class="navbar-brand text-white">Phone Book</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
-                    <a class="nav-link text-white active" href="/">Home</a>
-                    <a class="nav-link text-white" href="/contact">Contacts</a>
-                    <a class="nav-link text-white">About us</a>
+                    <a class="nav-link text-white active" href="/"><?= $language->GetVar('home') ?></a>
+                    <a class="nav-link text-white" href="/contact"><?= $language->GetVar('contacts') ?></a>
+                    <a class="nav-link text-white"><?= $language->GetVar('about_us') ?></a>
                 </div>
             </div>
+
             <div class="d-flex align-items-center">
                 <?php if (!isset($_SESSION['authorize']['id'])) { ?>
-                    <a class="nav-link text-white" href="/login">Login</a>
+                    <a class="nav-link text-white" href="/login"><?= $language->GetVar('login') ?></a>
                 <?php } else { ?>
-                    <a class="nav-link text-white" href="/logout">Logout</a>
+                    <a class="nav-link text-white" href="/logout"><?= $language->GetVar('logout') ?></a>
                 <?php } ?>
-
             </div>
+
         </div>
+        <select name="lang" style="width: 4%;" class="form-select-sm py-1 me-2" onchange="switchLanguage(this.value)">
+            <!--                bg-primary text-white border-white-->
+
+            <?php foreach ($language->GetLangList() as $index => $val) { ?>
+                <option <?= $language->GetLanguage() == $val ? "selected" : "" ?>> <?= $val ?></option>
+            <?php } ?>
+        </select>
         </div>
     </nav>
 </header>
@@ -43,3 +51,13 @@
 
 
 </body>
+<script>
+    function switchLanguage(value) {
+        fetch('/lang/switch/' + value, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            },
+        }).then(x => location.reload());
+    }
+</script>

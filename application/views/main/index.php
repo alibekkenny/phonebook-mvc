@@ -6,7 +6,8 @@
 <!--<h1 class="text-center mt-5"> Here will be some information about phone book!</h1>-->
 <!--<h1 class="text-center mt-2">But now you can go to contacts list</h1>-->
 <div class="text-center">
-    <p class="h2 mt-5">Here will be some information about phone book!</p>
-    <footer class="footer">But now you can go to your <a class="" href="/contact">contacts list</a>
+    <p class="h2 mt-5"><?= $language->GetVar('some_info') ?></p>
+    <footer class="footer"><?= $language->GetVar('can_visit') ?> <a class=""
+                                                                    href="/contact"><?= $language->GetVar('contacts_list') ?></a>
     </footer>
 </div>

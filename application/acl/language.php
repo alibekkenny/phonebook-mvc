@@ -2,16 +2,15 @@
 
 return [
     'all' => [
-        'login',
-        'register',
+        'switch'
     ],
     'authorize' => [
-        'logout',
+
     ],
     'guest' => [
 
     ],
     'admin' => [
 
-    ]
+    ],
 ];

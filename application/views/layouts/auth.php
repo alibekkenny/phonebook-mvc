@@ -15,10 +15,26 @@
 <body>
 
 <main class="mt-5">
-    <div class="container pt-4"> <?= $content ?>
+
+    <div class="container pt-4 ">
+        <select name="lang" style="width: 10%;" class="form-select float-end" onchange="switchLanguage(this.value)">
+            <?php foreach ($language->GetLangList() as $index => $val) { ?>
+                <option <?= $language->GetLanguage() == $val ? "selected" : "" ?>> <?= $val ?></option>
+            <?php } ?>
+        </select>
+        <?= $content ?>
     </div>
 </main>
 
 
 </body>
-
+<script>
+    function switchLanguage(value) {
+        fetch('/lang/switch/' + value, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            },
+        }).then(x => location.reload());
+    }
+</script>

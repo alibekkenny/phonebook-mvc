@@ -5,6 +5,10 @@ return [
         'controller' => 'main',
         'action' => 'index',
     ],
+    'lang/switch/{language:[a-z]+}' => [
+        'controller' => 'language',
+        'action' => 'switch',
+    ],
     'login' => [
         'controller' => 'user',
         'action' => 'login',
