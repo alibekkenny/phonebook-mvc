@@ -19,10 +19,9 @@
         <p class="lead">
             You don't have access to that page
         </p>
-        <a href='/login' class="btn btn-primary">Login</a>
+        <a id="login-link" href='/login' class="btn btn-primary">Login</a>
     </div>
 </div>
 </body>
-
 
 </html>

@@ -30,11 +30,10 @@
 </body>
 <script>
     function switchLanguage(value) {
-        fetch('/lang/switch/' + value, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-            },
-        }).then(x => location.reload());
+        // console.log(this.location.pathname.split('/')[1]);
+        let currentUrl = this.location.href;
+        let newUrl = currentUrl.replace(/\/[a-z]{2}\//, '/' + value + '/');
+        console.log('current: ', currentUrl, '\nnew url: ', newUrl)
+        window.location.href = newUrl;
     }
 </script>

@@ -3,7 +3,7 @@
     <div class="card card-login mx-auto mt-5 w-50">
         <h5 class="card-header py-3 "><?= $language->GetVar('edit_contact') ?></h5>
         <div class="card-body">
-            <form action="/contact/edit/<?= $data['id'] ?>" method="post">
+            <form action="/<?= $language->GetLanguage() ?>/contact/edit/<?= $data['id'] ?>" method="post">
                 <div class="form-group">
                     <label><?= $language->GetVar('contact_name') ?></label>
                     <input class="form-control" placeholder="Name" type="text" name="contact_name"
@@ -17,7 +17,7 @@
                 </div>
                 <div id="for_numbers">
                     <a class="mt-2 btn form-control btn-primary text-white"
-                       href="/contact/<?= $data['id'] ?>/phone/add">
+                       href="/<?= $language->GetLanguage() ?>/contact/<?= $data['id'] ?>/phone/add">
                         <?= $language->GetVar('add_phone') ?>
                     </a>
                     <!--                    <a class="btn px-3 py-1 btn-primary" href="/contact/-->
@@ -59,7 +59,8 @@
                 <button type="submit"
                         class="btn btn-success btn-block w-100 mt-3"><?= $language->GetVar('save') ?></button>
             </form>
-            <a class="btn btn-danger px-4 mt-2 w-100" href="/contact"><?= $language->GetVar('cancel') ?></a>
+            <a class="btn btn-danger px-4 mt-2 w-100"
+               href="/<?= $language->GetLanguage() ?>/contact"><?= $language->GetVar('cancel') ?></a>
         </div>
     </div>
 </div>
@@ -69,7 +70,7 @@
         if (id == 0) {
             // console.log(id);
         } else {
-            fetch('/contact/phone/delete/' + id, {
+            fetch('/en/contact/phone/delete/' + id, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json; charset=UTF-8"

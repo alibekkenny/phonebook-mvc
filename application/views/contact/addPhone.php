@@ -14,7 +14,7 @@
     <div class="card card-login mx-auto mt-5">
         <h5 class="card-header py-3 "><?= $language->GetVar('add_new_value') ?></h5>
         <div class="card-body">
-            <form action="/contact/<?= $contact['id'] ?>/phone/add" method="post">
+            <form action="/<?= $language->GetLanguage() ?>/contact/<?= $contact['id'] ?>/phone/add" method="post">
                 <div id="for_numbers">
                     <div class="form-group mt-2">
                         <label><?= $language->GetVar('category') ?></label>
@@ -32,7 +32,8 @@
                 <button type="submit"
                         class="btn btn-success btn-block w-100 mt-3"><?= $language->GetVar('add_to_phonebook') ?></button>
             </form>
-            <a class="btn btn-danger px-4 mt-2 w-100" href="/contact"><?= $language->GetVar('cancel') ?></a>
+            <a class="btn btn-danger px-4 mt-2 w-100"
+               href="/<?= $language->GetLanguage() ?>/contact"><?= $language->GetVar('cancel') ?></a>
         </div>
     </div>
 </div>

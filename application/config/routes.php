@@ -1,47 +1,43 @@
 <?php
 
 return [
-    '' => [
+    '{lang:[a-z]+}' => [
         'controller' => 'main',
         'action' => 'index',
     ],
-    'lang/switch/{language:[a-z]+}' => [
-        'controller' => 'language',
-        'action' => 'switch',
-    ],
-    'login' => [
+    '{lang:[a-z].}/login' => [
         'controller' => 'user',
         'action' => 'login',
     ],
-    'logout' => [
+    '{lang:[a-z].}/logout' => [
         'controller' => 'user',
         'action' => 'logout',
     ],
-    'register' => [
+    '{lang:[a-z].}/register' => [
         'controller' => 'user',
         'action' => 'register'
     ],
-    'contact' => [
+    '{lang:[a-z]+}/contact' => [
         'controller' => 'contact',
         'action' => 'show',
     ],
-    'contact/add' => [
+    '{lang:[a-z]+}/contact/add' => [
         'controller' => 'contact',
         'action' => 'add',
     ],
-    'contact/edit/{id:\d+}' => [
+    '{lang:[a-z]+}/contact/edit/{id:\d+}' => [
         'controller' => 'contact',
         'action' => 'edit',
     ],
-    'contact/delete/{id:\d+}' => [
+    '{lang:[a-z]+}/contact/delete/{id:\d+}' => [
         'controller' => 'contact',
         'action' => 'delete',
     ],
-    'contact/phone/delete/{id:\d+}' => [
+    '{lang:[a-z]+}/contact/phone/delete/{id:\d+}' => [
         'controller' => 'contact',
         'action' => 'deleteContactPhone',
     ],
-    'contact/{id:\d+}/phone/add' => [
+    '{lang:[a-z]+}/contact/{id:\d+}/phone/add' => [
         'controller' => 'contact',
         'action' => 'addPhone',
     ],

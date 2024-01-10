@@ -8,6 +8,6 @@
 <div class="text-center">
     <p class="h2 mt-5"><?= $language->GetVar('some_info') ?></p>
     <footer class="footer"><?= $language->GetVar('can_visit') ?> <a class=""
-                                                                    href="/contact"><?= $language->GetVar('contacts_list') ?></a>
+                                                                    href="/<?= $language->GetLanguage() ?>/contact"><?= $language->GetVar('contacts_list') ?></a>
     </footer>
 </div>

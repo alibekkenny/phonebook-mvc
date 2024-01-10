@@ -23,30 +23,30 @@ class Language
         $exists = in_array($language, $this->list);
         if ($exists) {
             $this->language = $language;
-            return setcookie(
-                'selected_language', //cookie name
-                $language, //cookie value
-                strtotime("+1 year"), //cookie expiration
-                '/' //cookie path
-            );
+            return true;
         }
-//        $this->LoadLanguageValues($language);
         return false;
     }
 
-    public function GetLanguage()
+//    public function GetLanguage()
+//    {
+//        $language = $this->default;
+//        if (isset($_COOKIE['selected_language'])) {
+//            $language = $_COOKIE['selected_language'];
+//        }
+//        $this->language = $language;
+//        return $this->language;
+//    }
+    function GetLanguage()
     {
-        $language = $this->default;
-        if (isset($_COOKIE['selected_language'])) {
-            $language = $_COOKIE['selected_language'];
-        }
-        $this->language = $language;
-        return $this->language;
+        $url = $_SERVER['REQUEST_URI'];
+        $parts = explode('/', trim($url, '/'));
+        return isset($parts[0]) ? $parts[0] : $this->default; // Default to English if no language specified
     }
+
 
     public function LoadLanguageValues()
     {
-
         $lang = require_once('application/config/languages/' . $this->language . '.php');
         $this->lang_vars = array_merge($this->lang_vars, $lang);
     }

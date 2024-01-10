@@ -1,4 +1,5 @@
-<a class="btn btn-primary float-end" href="/contact/add"><?= $language->GetVar('add_contact') ?></a>
+<a class="btn btn-primary float-end"
+   href="/<?= $language->GetLanguage() ?>/contact/add"><?= $language->GetVar('add_contact') ?></a>
 <table class="table table-hover">
     <thead>
     <tr>
@@ -23,9 +24,9 @@
                 } ?></td>
             <td><?= $value['description'] ?></td>
             <td><a class="btn px-3 py-1 btn-success"
-                   href="/contact/edit/<?= $value['id'] ?>"><?= $language->GetVar('edit') ?></a>
+                   href="/<?= $language->GetLanguage() ?>/contact/edit/<?= $value['id'] ?>"><?= $language->GetVar('edit') ?></a>
                 <a class="btn px-3 py-1 btn-danger"
-                   href="/contact/delete/<?= $value['id'] ?>"><?= $language->GetVar('delete') ?></a>
+                   href="/en/contact/delete/<?= $value['id'] ?>"><?= $language->GetVar('delete') ?></a>
             </td>
         </tr>
     <?php } ?>

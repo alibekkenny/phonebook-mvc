@@ -17,17 +17,21 @@
             <a class="navbar-brand text-white">Phone Book</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
-                    <a class="nav-link text-white active" href="/"><?= $language->GetVar('home') ?></a>
-                    <a class="nav-link text-white" href="/contact"><?= $language->GetVar('contacts') ?></a>
+                    <a class="nav-link text-white active"
+                       href="/<?= $language->GetLanguage() ?>/"><?= $language->GetVar('home') ?></a>
+                    <a class="nav-link text-white"
+                       href="/<?= $language->GetLanguage() ?>/contact"><?= $language->GetVar('contacts') ?></a>
                     <a class="nav-link text-white"><?= $language->GetVar('about_us') ?></a>
                 </div>
             </div>
 
             <div class="d-flex align-items-center">
                 <?php if (!isset($_SESSION['authorize']['id'])) { ?>
-                    <a class="nav-link text-white" href="/login"><?= $language->GetVar('login') ?></a>
+                    <a class="nav-link text-white"
+                       href="/<?= $language->GetLanguage() ?>/login"><?= $language->GetVar('login') ?></a>
                 <?php } else { ?>
-                    <a class="nav-link text-white" href="/logout"><?= $language->GetVar('logout') ?></a>
+                    <a class="nav-link text-white"
+                       href="/<?= $language->GetLanguage() ?>/logout"><?= $language->GetVar('logout') ?></a>
                 <?php } ?>
             </div>
 
@@ -53,11 +57,10 @@
 </body>
 <script>
     function switchLanguage(value) {
-        fetch('/lang/switch/' + value, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-            },
-        }).then(x => location.reload());
+        // console.log(this.location.pathname.split('/')[1]);
+        let currentUrl = this.location.href;
+        let newUrl = currentUrl.replace(/\/[a-z]{2}\//, '/' + value + '/');
+        console.log('current: ', currentUrl, 'new url: ', newUrl)
+        window.location.href = newUrl;
     }
 </script>

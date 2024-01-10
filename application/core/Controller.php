@@ -17,8 +17,9 @@ class Controller
         if (!$this->checkAcl()) {
             View::errorCode(403);
         }
-        $this->view = new View($route);
         $this->model = $this->loadModel($route['controller']);
+        $this->view = new View($route);
+        $this->view->language->SetLanguage($this->route['lang']);
     }
 
     public function loadModel($name)

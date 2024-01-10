@@ -39,7 +39,8 @@
                 <button type="submit"
                         class="btn btn-success btn-block w-100 mt-3"><?= $language->GetVar('add_to_phonebook') ?></button>
             </form>
-            <a class="btn btn-danger px-4 mt-2 w-100" href="/contact"><?= $language->GetVar('cancel') ?></a>
+            <a class="btn btn-danger px-4 mt-2 w-100"
+               href="/contact"><?= $language->GetVar('cancel') ?></a>
         </div>
     </div>
 </div>
