@@ -24,7 +24,7 @@ class AdminController extends Controller
                 $this->view->message('Error', $this->model->error);
             }
             $_SESSION['admin'] = true;
-            $this->view->location('/admin');
+            $this->view->location('admin');
         }
         $this->view->layout = 'auth';
         $this->view->render("Login");
@@ -51,7 +51,7 @@ class AdminController extends Controller
                 $this->view->message('Error', $userModel->error);
             }
             $this->model->userEdit($_POST);
-            $this->view->location('/admin');
+            $this->view->location('admin');
         }
         $userModel = new User;
         $user_id = $this->route['id'];
@@ -82,7 +82,7 @@ class AdminController extends Controller
                 $users_phones_model->editContactPhone($_POST['phone'], $this->route['id']);
 //                $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
             }
-            $this->view->location('/admin/contact');
+            $this->view->location('admin/contact');
         }
         $contact = $contactModel->getContact($this->route['id']);
         $categories = $categoryModel->getCategories();
@@ -103,13 +103,23 @@ class AdminController extends Controller
 //        $this->view->redirect('contact');
     }
 
+    public function contactDeleteAction()
+    {
+        $contactModel = new Contact;
+        if (!$contactModel->contactExistsById($this->route['id'])) {
+            $this->view->errorCode(404);
+        }
+        $contactModel->deleteContact($this->route['id']);
+        $this->view->redirect('/admin');
+    }
+
     public function userDeleteAction()
     {
         if (!$this->model->userExists($this->route['id'])) {
             $this->view->errorCode(404);
         }
         $this->model->userDelete($this->route['id']);
-        $this->view->redirect('admin');
+        $this->view->redirect('/admin');
     }
 
     public function showUsersContactsAction()
@@ -137,6 +147,6 @@ class AdminController extends Controller
     public function logoutAction()
     {
         unset($_SESSION['admin']);
-        $this->view->redirect('admin/login');
+        $this->view->redirect('/admin/login');
     }
 }

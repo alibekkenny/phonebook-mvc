@@ -3,7 +3,7 @@
     <div class="card card-login mx-auto mt-5 w-50">
         <h5 class="card-header py-3 ">Edit contact</h5>
         <div class="card-body">
-            <form action="/admin/contact/edit/<?= $data['id'] ?>" method="post">
+            <form action="/<?= $language->GetLanguage() ?>/admin/contact/edit/<?= $data['id'] ?>" method="post">
                 <div class="form-group">
                     <label>Contact name</label>
                     <input class="form-control" placeholder="Name" type="text" name="contact_name"
@@ -68,7 +68,7 @@
         if (id == 0) {
             // console.log(id);
         } else {
-            fetch('/contact/phone/delete/' + id, {
+            fetch('/<?= $language->GetLanguage()?>/contact/phone/delete/' + id, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json; charset=UTF-8"

@@ -20,7 +20,7 @@ class UserController extends Controller
                 $this->view->message('Error', $this->model->error);
             }
             $_SESSION['authorize']['id'] = $result;
-            $this->view->location('/' . $this->view->language->GetLanguage() . '/');
+            $this->view->location('/');
         }
         $this->view->render("Login");
     }
@@ -28,7 +28,7 @@ class UserController extends Controller
     public function logoutAction()
     {
         unset($_SESSION['authorize']['id']);
-        $this->view->redirect($this->view->language->GetLanguage() . '/login');
+        $this->view->redirect('/login');
     }
 
     public function registerAction()
@@ -46,7 +46,7 @@ class UserController extends Controller
                 $this->view->message('Error', 'Request processing went wrong!');
             }
             $_SESSION['authorize']['id'] = $id;
-            $this->view->location('/' . $this->view->language->GetLanguage() . '/');
+            $this->view->location('/');
         }
         $this->view->render("Register");
     }

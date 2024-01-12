@@ -17,6 +17,7 @@ return [
         'showUsersContacts',
         'showContacts',
         'logout',
-        'contactEdit'
+        'contactEdit',
+        'contactDelete'
     ]
 ];

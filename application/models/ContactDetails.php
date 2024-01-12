@@ -61,7 +61,7 @@ class ContactDetails extends Model
             'phone' => $post['phone_number'],
             'phone_book_id' => $phone_book_id,
         ];
-        $this->db->query("INSERT INTO users_phones(phone, phone_category_id, phone_book_id) VALUES (:phone, :phone_category_id, :phone_book_id);", $params);
+        $this->db->query("INSERT INTO contact_details(phone, phone_category_id, phone_book_id) VALUES (:phone, :phone_category_id, :phone_book_id);", $params);
         return true;
     }
 
@@ -70,7 +70,7 @@ class ContactDetails extends Model
         $params = [
             'phone_book_id' => $phone_book_id,
         ];
-        return $this->db->row('SELECT users_phones.id as "id",  users_phones.phone as "phone", users_phones.phone_book_id as "phone_book_id", pc.category as "category", pc.id as "category_id" FROM users_phones LEFT JOIN phone_categories pc on pc.id = users_phones.phone_category_id WHERE phone_book_id = :phone_book_id', $params);
+        return $this->db->row('SELECT contact_details.id as "id",  contact_details.phone as "phone", contact_details.phone_book_id as "phone_book_id", pc.category as "category", pc.id as "category_id" FROM contact_details LEFT JOIN phone_categories pc on pc.id = contact_details.phone_category_id WHERE contact_details.phone_book_id = :phone_book_id', $params);
     }
 
     public function addContactPhone($phones, $phone_book_id)
@@ -82,7 +82,7 @@ class ContactDetails extends Model
                 'name' => $value['category'],
                 'phone_book_id' => $phone_book_id,
             ];
-            $this->db->query("INSERT INTO users_phones(phone, name, phone_book_id) VALUES (:phone, :name, :phone_book_id);", $params);
+            $this->db->query("INSERT INTO contact_details(phone, name, phone_book_id) VALUES (:phone, :name, :phone_book_id);", $params);
         }
         return true;
     }
@@ -95,7 +95,7 @@ class ContactDetails extends Model
                 'phone' => $value['phone_number'],
                 'phone_category_id' => $value['phone_category'],
             ];
-            $this->db->query('UPDATE users_phones SET phone = :phone, phone_category_id = :phone_category_id WHERE id = :id;', $params);
+            $this->db->query('UPDATE contact_details SET phone = :phone, phone_category_id = :phone_category_id WHERE id = :id;', $params);
         }
         return true;
     }
@@ -105,7 +105,7 @@ class ContactDetails extends Model
         $params = [
             'phone_book_id' => $phone_book_id,
         ];
-        return $this->db->query('DELETE FROM users_phones WHERE phone_book_id=:phone_book_id;', $params);
+        return $this->db->query('DELETE FROM contact_details WHERE phone_book_id=:phone_book_id;', $params);
     }
 
     public function deleteContactPhone($id)
@@ -113,7 +113,7 @@ class ContactDetails extends Model
         $params = [
             'id' => $id,
         ];
-        return $this->db->query('DELETE FROM users_phones WHERE id =:id;', $params);
+        return $this->db->query('DELETE FROM contact_details WHERE id =:id;', $params);
     }
 
     public function contactPhoneExists($id)
@@ -121,6 +121,6 @@ class ContactDetails extends Model
         $params = [
             'id' => $id,
         ];
-        return $this->db->column('SELECT id FROM users_phones WHERE id =:id;', $params);
+        return $this->db->column('SELECT id FROM contact_details WHERE id =:id;', $params);
     }
 }

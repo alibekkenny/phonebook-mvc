@@ -14,7 +14,7 @@ class Contact extends Model
             'id' => $id,
             'user_id' => $user_id
         ];
-        return $this->db->column("SELECT id FROM users_phone_book WHERE id = :id and user_id = :user_id", $params);
+        return $this->db->column("SELECT id FROM users_contacts WHERE id = :id and user_id = :user_id", $params);
     }
 
     public function contactExistsById($id)
@@ -22,7 +22,7 @@ class Contact extends Model
         $params = [
             'id' => $id,
         ];
-        return $this->db->column("SELECT id FROM users_phone_book WHERE id = :id", $params);
+        return $this->db->column("SELECT id FROM users_contacts WHERE id = :id", $params);
     }
 
     public function contactValidate($post, $users_phones_model)
@@ -54,7 +54,7 @@ class Contact extends Model
             'description' => $post['description'],
             'user_id' => $_SESSION['authorize']['id'],
         ];
-        $this->db->query("INSERT INTO users_phone_book(name, description, user_id) VALUES (:name,:description,:user_id)", $vars);
+        $this->db->query("INSERT INTO users_contacts(name, description, user_id) VALUES (:name,:description,:user_id)", $vars);
         return $this->db->lastInsertId();
     }
 
@@ -65,7 +65,7 @@ class Contact extends Model
             'description' => $post['description'],
             'id' => $id,
         ];
-        $this->db->query("UPDATE users_phone_book SET name=:name, description=:description WHERE id=:id", $params);
+        $this->db->query("UPDATE users_contacts SET name=:name, description=:description WHERE id=:id", $params);
     }
 
     public function getContact($id)
@@ -73,7 +73,7 @@ class Contact extends Model
         $params = [
             'id' => $id
         ];
-        $contact = $this->db->row("SELECT * FROM users_phone_book WHERE id=:id", $params)[0];
+        $contact = $this->db->row("SELECT * FROM users_contacts WHERE id=:id", $params)[0];
         $users_phones_model = new ContactDetails;
         $contact['phone'] = $users_phones_model->getContactPhones($id);
         return $contact;
@@ -81,7 +81,7 @@ class Contact extends Model
 
     public function getContacts()
     {
-        $contacts = $this->db->row('SELECT * FROM users_phone_book');
+        $contacts = $this->db->row('SELECT * FROM users_contacts');
         $users_phones_model = new ContactDetails;
         foreach ($contacts as $key => $value) {
             $contacts[$key]['phone'] = $users_phones_model->getContactPhones($value['id']);
@@ -94,7 +94,7 @@ class Contact extends Model
         $params = [
             'user_id' => $user_id
         ];
-        $phone_book = $this->db->row("SELECT * FROM users_phone_book WHERE user_id=:user_id", $params);
+        $phone_book = $this->db->row("SELECT * FROM users_contacts WHERE user_id=:user_id", $params);
         $users_phones_model = new ContactDetails;
         foreach ($phone_book as $key => $value) {
             $phone_book[$key]['phone'] = $users_phones_model->getContactPhones($value['id']);
@@ -109,7 +109,7 @@ class Contact extends Model
         $params = [
             'id' => $id
         ];
-        $this->db->query("DELETE FROM users_phone_book WHERE id=:id", $params);
+        $this->db->query("DELETE FROM users_contacts WHERE id=:id", $params);
     }
 
 

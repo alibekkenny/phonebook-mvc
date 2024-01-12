@@ -20,10 +20,13 @@
             //                    echo $phone['name'] . ' - ' . $phone['phone'] . '<br>';
             //                } ?><!--</td>-->
             <td><?= $value['email'] ?></td>
-            <td><a class="btn px-3 py-1 btn-primary" href="/admin/user/<?= $value['id'] ?>/contact">Show contacts</a>
+            <td><a class="btn px-3 py-1 btn-primary"
+                   href="/<?= $language->GetLanguage() ?>/admin/user/<?= $value['id'] ?>/contact">Show contacts</a>
             </td>
-            <td><a class="btn px-3 py-1 btn-success" href="/admin/user/edit/<?= $value['id'] ?>">Edit</a>
-                <a class="btn px-3 py-1 btn-danger" href="/admin/user/delete/<?= $value['id'] ?>">Delete</a>
+            <td><a class="btn px-3 py-1 btn-success"
+                   href="/<?= $language->GetLanguage() ?>/admin/user/edit/<?= $value['id'] ?>">Edit</a>
+                <a class="btn px-3 py-1 btn-danger"
+                   href="/<?= $language->GetLanguage() ?>/admin/user/delete/<?= $value['id'] ?>">Delete</a>
             </td>
         </tr>
     <?php } ?>

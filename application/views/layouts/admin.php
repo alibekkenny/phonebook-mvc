@@ -16,14 +16,17 @@
         <div class="position-sticky">
             <h3 class="text-center">Admin panel</h3>
             <div class="list-group list-group-flush mx-3 mt-4">
-                <a href="/admin" class="list-group-item list-group-item-action py-2 ripple"
+                <a href="/<?= $language->GetLanguage() ?>/admin"
+                   class="list-group-item list-group-item-action py-2 ripple"
                    aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
                 </a>
-                <a href="/admin/contact" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="/<?= $language->GetLanguage() ?>/admin/contact"
+                   class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-area fa-fw me-3"></i><span>Contacts</span>
                 </a>
-                <a href="/admin/logout" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="/<?= $language->GetLanguage() ?>/admin/logout"
+                   class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-area fa-fw me-3"></i><span><svg xmlns="http://www.w3.org/2000/svg"
                                                                            width="16"
                                                                            height="16" fill="currentColor"

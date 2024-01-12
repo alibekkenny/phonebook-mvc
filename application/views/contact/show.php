@@ -20,7 +20,7 @@
                 <?php //= $value['id'] ?><!--/phone/add">Add-->
                 <!--                    new source</a><br>-->
                 <?php foreach ($value['phone'] as $key => $phone) {
-                    echo $phone['category'] . ' - ' . $phone['phone'] . '<br>';
+                    echo $phone['category'] . ': ' . $phone['phone'] . '<br>';
                 } ?></td>
             <td><?= $value['description'] ?></td>
             <td><a class="btn px-3 py-1 btn-success"

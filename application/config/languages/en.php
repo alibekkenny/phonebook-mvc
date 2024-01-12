@@ -37,4 +37,6 @@ return [
     'value' => 'Value',
     'save' => 'Save',
     'cancel' => 'Cancel',
+    'admin_page' => 'Admin page',
+    ''
 ];

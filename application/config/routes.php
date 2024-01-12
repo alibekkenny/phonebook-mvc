@@ -41,35 +41,39 @@ return [
         'controller' => 'contact',
         'action' => 'addPhone',
     ],
-    'admin' => [
+    '{lang:[a-z]+}/admin' => [
         'controller' => 'admin',
         'action' => 'index',
     ],
-    'admin/login' => [
+    '{lang:[a-z]+}/admin/login' => [
         'controller' => 'admin',
         'action' => 'login',
     ],
-    'admin/user/edit/{id:\d+}' => [
+    '{lang:[a-z]+}/admin/user/edit/{id:\d+}' => [
         'controller' => 'admin',
         'action' => 'userEdit',
     ],
-    'admin/user/delete/{id:\d+}' => [
+    '{lang:[a-z]+}/admin/user/delete/{id:\d+}' => [
         'controller' => 'admin',
         'action' => 'userDelete',
     ],
-    'admin/user/{id:\d+}/contact' => [
+    '{lang:[a-z]+}/admin/user/{id:\d+}/contact' => [
         'controller' => 'admin',
         'action' => 'showUsersContacts'
     ],
-    'admin/contact' => [
+    '{lang:[a-z]+}/admin/contact' => [
         'controller' => 'admin',
         'action' => 'showContacts'
     ],
-    'admin/contact/edit/{id:\d+}' => [
+    '{lang:[a-z]+}/admin/contact/edit/{id:\d+}' => [
         'controller' => 'admin',
         'action' => 'contactEdit',
     ],
-    'admin/logout' => [
+    '{lang:[a-z]+}/admin/contact/delete/{id:\d+}' => [
+        'controller' => 'admin',
+        'action' => 'contactDelete',
+    ],
+    '{lang:[a-z]+}/admin/logout' => [
         'controller' => 'admin',
         'action' => 'logout',
     ]

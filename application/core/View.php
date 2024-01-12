@@ -32,7 +32,8 @@ class View
 
     public function redirect($url)
     {
-        header('location: /' . $url);
+
+        header('location: /' . $this->language->GetLanguage() . '/' . $url);
         exit;
     }
 
@@ -54,6 +55,6 @@ class View
 
     public function location($url)
     {
-        exit(json_encode(['url' => $url]));
+        exit(json_encode(['url' => '/' . $this->language->GetLanguage() . '/' . $url]));
     }
 }

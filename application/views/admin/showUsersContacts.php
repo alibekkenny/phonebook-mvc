@@ -39,8 +39,10 @@
                     echo $phone['category'] . ' - ' . $phone['phone'] . '<br>';
                 } ?></td>
             <td><?= $value['description'] ?></td>
-            <td><a class="btn px-3 py-1 btn-success" href="/admin/contact/edit/<?= $value['id'] ?>">Edit</a>
-                <a class="btn px-3 py-1 btn-danger" href="/admin/contact/delete/<?= $value['id'] ?>">Delete</a>
+            <td><a class="btn px-3 py-1 btn-success"
+                   href="/<?= $language->GetLanguage() ?>/admin/contact/edit/<?= $value['id'] ?>">Edit</a>
+                <a class="btn px-3 py-1 btn-danger"
+                   href="/<?= $language->GetLanguage() ?>/admin/contact/delete/<?= $value['id'] ?>">Delete</a>
             </td>
         </tr>
     <?php } ?>

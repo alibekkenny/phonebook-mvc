@@ -3,7 +3,7 @@
     <div class="card card-login mx-auto mt-5 w-50">
         <h5 class="card-header py-3 "><?= $language->GetVar('add_contact') ?></h5>
         <div class="card-body">
-            <form action="/contact/add" method="post">
+            <form action="/<?= $language->GetLanguage() ?>/contact/add" method="post">
                 <div class="form-group">
                     <label><?= $language->GetVar('contact_name') ?></label>
                     <input class="form-control" placeholder="Name" type="text" name="contact_name">
@@ -40,7 +40,7 @@
                         class="btn btn-success btn-block w-100 mt-3"><?= $language->GetVar('add_to_phonebook') ?></button>
             </form>
             <a class="btn btn-danger px-4 mt-2 w-100"
-               href="/contact"><?= $language->GetVar('cancel') ?></a>
+               href="/<?= $language->GetLanguage() ?>/contact"><?= $language->GetVar('cancel') ?></a>
         </div>
     </div>
 </div>

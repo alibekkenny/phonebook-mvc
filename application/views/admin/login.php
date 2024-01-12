@@ -5,7 +5,7 @@
         <h5 class="card-header py-3 bg-secondary text-white">Admin Page</h5>
         <div class="card-body">
             <h5 class="card-title">Sign in</h5>
-            <form action="/admin/login" method="post">
+            <form action="/<?= $language->GetLanguage() ?>/admin/login" method="post">
                 <div class="form-group">
                     <label>Login</label>
                     <input class="form-control" type="text" name="login">

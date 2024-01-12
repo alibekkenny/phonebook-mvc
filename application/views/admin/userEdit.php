@@ -2,7 +2,7 @@
     <div class="card card-login mx-auto mt-5 w-50">
         <h5 class="card-header py-3">User edit</h5>
         <div class="card-body">
-            <form action="/admin/user/edit/<?= $user['id'] ?>" method="post">
+            <form action="/<?= $language->GetLanguage() ?>/admin/user/edit/<?= $user['id'] ?>" method="post">
                 <div class="form-group">
                     <label>Id</label>
                     <input class="form-control" type="text" name="id" readonly value="<?= $user['id'] ?>">

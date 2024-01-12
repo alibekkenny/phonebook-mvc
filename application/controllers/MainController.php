@@ -10,6 +10,9 @@ class MainController extends Controller
     {
 //        $contactModel = new Contact;
 //        $contacts = $contactModel->
+        if (empty($_SESSION['authorize']['id'])) {
+            $this->view->redirect('/login');
+        }
         $this->view->render("Main");
     }
 

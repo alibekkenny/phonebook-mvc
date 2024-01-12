@@ -35,7 +35,7 @@ class ContactController extends Controller
 //                    $this->view->message('Error', 'Faced some problems trying to create a new contact!');
 //                }
 //            }
-            $this->view->location('/' . $this->view->language->GetLanguage() . '/contact');
+            $this->view->location('contact');
         }
         $this->view->render("New contact");
     }
@@ -61,7 +61,7 @@ class ContactController extends Controller
                 $users_phones_model->editContactPhone($_POST['phone'], $this->route['id']);
 //                $users_phones_model->addContactPhone($addedContacts, $this->route['id']);
             }
-            $this->view->location('/' . $this->view->language->GetLanguage() . '/contact');
+            $this->view->location('contact');
         }
         $contact = $this->model->getContact($this->route['id']);
         $categories = $categoryModel->getCategories();
@@ -78,7 +78,7 @@ class ContactController extends Controller
             $this->view->errorCode(404);
         }
         $this->model->deleteContact($this->route['id']);
-        $this->view->redirect($this->view->language->GetLanguage() . '/contact');
+        $this->view->redirect('/contact');
     }
 
     public function deleteContactPhoneAction()
@@ -105,7 +105,7 @@ class ContactController extends Controller
             if (!$createdPhoneId) {
                 $this->view->message('Error', 'Faced some problems trying to add a new phone!');
             }
-            $this->view->location('/' . $this->view->language->GetLanguage() . '/contact');
+            $this->view->location('contact');
         }
         $phoneCategoryModel = new PhoneCategory;
         $vars = [
