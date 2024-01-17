@@ -2,6 +2,7 @@
 require 'application/lib/Dev.php';
 require 'application/lib/Helpers.php';
 
+
 use application\core\Router;
 
 spl_autoload_register(function ($class) {
