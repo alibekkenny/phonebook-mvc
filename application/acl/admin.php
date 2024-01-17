@@ -2,7 +2,8 @@
 
 return [
     'all' => [
-        'login'
+        'login',
+        'index'
     ],
     'authorize' => [
 
@@ -11,7 +12,7 @@ return [
 
     ],
     'admin' => [
-        'index',
+
         'userEdit',
         'userDelete',
         'showUsersContacts',

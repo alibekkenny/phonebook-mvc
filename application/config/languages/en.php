@@ -38,5 +38,11 @@ return [
     'save' => 'Save',
     'cancel' => 'Cancel',
     'admin_page' => 'Admin page',
-    ''
+    'contact_id' => 'Contact ID',
+    'user_list' => 'User List',
+    'show_contacts' => 'Show Contacts',
+    'user_details' => 'User Details',
+    'user_contacts' => 'User Contacts',
+    'main_dash' => 'Main dashboard',
+    'user_edit' => 'User Edit',
 ];

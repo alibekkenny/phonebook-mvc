@@ -32,6 +32,9 @@ class AdminController extends Controller
 
     public function indexAction()
     {
+        if (empty($_SESSION['admin'])) {
+            $this->view->redirect('admin/login');
+        }
         $userModel = new User;
         $vars = [
             'users' => $userModel->getUsers(),
@@ -110,7 +113,7 @@ class AdminController extends Controller
             $this->view->errorCode(404);
         }
         $contactModel->deleteContact($this->route['id']);
-        $this->view->redirect('/admin');
+        $this->view->redirect('admin');
     }
 
     public function userDeleteAction()
@@ -119,7 +122,7 @@ class AdminController extends Controller
             $this->view->errorCode(404);
         }
         $this->model->userDelete($this->route['id']);
-        $this->view->redirect('/admin');
+        $this->view->redirect('admin');
     }
 
     public function showUsersContactsAction()
@@ -147,6 +150,6 @@ class AdminController extends Controller
     public function logoutAction()
     {
         unset($_SESSION['admin']);
-        $this->view->redirect('/admin/login');
+        $this->view->redirect('admin/login');
     }
 }

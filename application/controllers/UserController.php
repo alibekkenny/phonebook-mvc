@@ -28,7 +28,7 @@ class UserController extends Controller
     public function logoutAction()
     {
         unset($_SESSION['authorize']['id']);
-        $this->view->redirect('/login');
+        $this->view->redirect('login');
     }
 
     public function registerAction()

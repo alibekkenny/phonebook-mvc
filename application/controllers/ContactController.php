@@ -78,7 +78,7 @@ class ContactController extends Controller
             $this->view->errorCode(404);
         }
         $this->model->deleteContact($this->route['id']);
-        $this->view->redirect('/contact');
+        $this->view->redirect('contact');
     }
 
     public function deleteContactPhoneAction()

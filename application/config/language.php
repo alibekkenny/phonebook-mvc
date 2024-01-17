@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => 'english',
+    'default' => 'en',
     'list' => [
         'en',
         'ru'
