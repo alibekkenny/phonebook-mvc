@@ -2,7 +2,10 @@
 
 namespace application\models;
 
+
 use application\core\Model;
+
+require_once "bin\bootstrap.php";
 
 class User extends Model
 {
@@ -36,17 +39,17 @@ class User extends Model
             $this->error = "Email is not valid!";
             return false;
         }
-        $vars = [
-            'email' => $post['email'],
-        ];
-        $loginData = $this->db->row("SELECT * FROM users WHERE email=:email;", $vars);
+//        $vars = [
+//            'email' => $post['email'],
+//        ];
+        $loginData = $this->entityManager->getRepository(\entities\User::class)->findOneBy(['email' => $post['email']]);
         if (empty($loginData)) {
             $this->error = "Email or password is incorrect!";
             return false;
         }
-        $loginData = $loginData[0];
-        if ($loginData['email'] == $post['email'] && $loginData['password'] == $post['password']) {
-            return $loginData['id'];
+//        $loginData = $loginData[0];
+        if ($loginData->getEmail() == $post['email'] && $loginData->getPassword() == $post['password']) {
+            return $loginData->getId();
         }
         $this->error = "Email or password is incorrect!";
         return false;
@@ -67,22 +70,31 @@ class User extends Model
 
     public function userCreate($post)
     {
-        $params = [
-            'id' => 0,
-            'name' => $post['name'],
-            'email' => $post['email'],
-            'password' => $post['password']
-        ];
+//        $params = [
+//            'id' => 0,
+//            'name' => $post['name'],
+//            'email' => $post['email'],
+//            'password' => $post['password']
+//        ];
 
-        $this->db->query('INSERT INTO users VALUES(:id, :name, :email, :password)', $params);
-        return $this->db->lastInsertId();
+//        $this->db->query('INSERT INTO users VALUES(:id, :name, :email, :password)', $params);
+        $newUser = new \entities\User();
+        $newUser->setName($post['name']);
+        $newUser->setEmail($post['email']);
+        $newUser->setPassword($post['password']);
+        $this->entityManager->persist($newUser);
+        $this->entityManager->flush();
+        return $newUser->getId();
     }
 
     public function userExists($post)
     {
-        $params = [
-            'email' => $post['email']
-        ];
-        return $this->db->column('SELECT id FROM users WHERE email = :email', $params);
+//        $params = [
+//            'email' => $post['email']
+//        ];
+//        $entityManager->findOneBy(['email' => $post['email']]);
+//        var_dump($this->entityManager);
+
+        return $this->entityManager->getRepository(\entities\User::class)->findOneBy(['email' => $post['email']]);
     }
 }

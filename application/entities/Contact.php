@@ -1,6 +1,6 @@
 <?php
 
-namespace application\entities;
+namespace entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,7 +16,9 @@ class Contact
     private string $name;
     #[ORM\Column(type: 'string')]
     private string $description;
-    #[Id, ManyToOne(targetEntity: User::class, inversedBy: 'contacts')]
+    #[ORM\OneToMany(targetEntity: ContactDetails::class, mappedBy: 'contact', cascade: ['ALL'], indexBy: 'contact_details')]
+    private Collection $contactDetails;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'contacts')]
     private User $user;
 
     public function setUser(User $user): void

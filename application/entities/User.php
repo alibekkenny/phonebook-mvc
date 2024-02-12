@@ -1,7 +1,8 @@
 <?php
 
-namespace application\entities;
+namespace entities;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -20,8 +21,14 @@ class User
     private string $password;
 
     /** @var ArrayCollection<string, ArticleAttribute> */
-    #[OneToMany(targetEntity: Contact::class, mappedBy: 'user', cascade: ['ALL'], indexBy: 'contact')]
+    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'user', cascade: ['ALL'], indexBy: 'contact')]
     private Collection $contacts;
+
+    public function __toString()
+    {
+        $result = "id: " . $this->getId() . "\tname: " . $this->name . "\temail: " . $this->email;
+        return $result;
+    }
 
     public function addContact(string $name, Contact $value): void
     {
@@ -48,7 +55,7 @@ class User
         $this->email = $email;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
