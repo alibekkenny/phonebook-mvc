@@ -1,7 +1,8 @@
 <?php
 
-namespace entities;
+namespace repository;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -16,10 +17,16 @@ class Contact
     private string $name;
     #[ORM\Column(type: 'string')]
     private string $description;
+    /** @var ArrayCollection<string, ArticleAttribute> */
     #[ORM\OneToMany(targetEntity: ContactDetails::class, mappedBy: 'contact', cascade: ['ALL'], indexBy: 'contact_details')]
     private Collection $contactDetails;
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'contacts')]
     private User $user;
+
+    public function getContactDetails(): Collection
+    {
+        return $this->contactDetails;
+    }
 
     public function setUser(User $user): void
     {

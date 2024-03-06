@@ -9,7 +9,9 @@ class MainController extends Controller
 //    public function redirectAction()
 //    {
 //        if (empty($_SESSION['authorize']['id'])) {
-//            $this->view->redirect('en/login');
+//            $this->view->location('login');
+//        } else {
+//            $this->view->redirect('en');
 //        }
 //    }
 

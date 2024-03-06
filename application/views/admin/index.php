@@ -14,19 +14,19 @@
     <tbody>
     <?php foreach ($users as $index => $value) { ?>
         <tr>
-            <th scope="row"><?= $value['id'] ?></th>
-            <td><?= $value['name'] ?></td>
+            <th scope="row"><?= $value->getId() ?></th>
+            <td><?= $value->getName() ?></td>
             <!--            <td>--><?php //foreach ($value['phone'] as $key => $phone) {
             //                    echo $phone['name'] . ' - ' . $phone['phone'] . '<br>';
             //                } ?><!--</td>-->
-            <td><?= $value['email'] ?></td>
+            <td><?= $value->getEmail() ?></td>
             <td><a class="btn px-3 py-1 btn-primary"
-                   href="/<?= $language->GetLanguage() ?>/admin/user/<?= $value['id'] ?>/contact"><?= $language->GetVar('show_contacts') ?></a>
+                   href="/<?= $language->GetLanguage() ?>/admin/user/<?= $value->getId() ?>/contact"><?= $language->GetVar('show_contacts') ?></a>
             </td>
             <td><a class="btn px-3 py-1 btn-success"
-                   href="/<?= $language->GetLanguage() ?>/admin/user/edit/<?= $value['id'] ?>"><?= $language->GetVar('edit') ?></a>
+                   href="/<?= $language->GetLanguage() ?>/admin/user/edit/<?= $value->getId() ?>"><?= $language->GetVar('edit') ?></a>
                 <a class="btn px-3 py-1 btn-danger"
-                   href="/<?= $language->GetLanguage() ?>/admin/user/delete/<?= $value['id'] ?>"><?= $language->GetVar('delete') ?></a>
+                   href="/<?= $language->GetLanguage() ?>/admin/user/delete/<?= $value->getId() ?>"><?= $language->GetVar('delete') ?></a>
             </td>
         </tr>
     <?php } ?>

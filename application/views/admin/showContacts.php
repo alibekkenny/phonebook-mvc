@@ -12,16 +12,16 @@
     <tbody>
     <?php foreach ($phone_book as $index => $value) { ?>
         <tr>
-            <th scope="row"><?= $value['id'] ?></th>
-            <td><?= $value['name'] ?></td>
-            <td><?php foreach ($value['phone'] as $key => $phone) {
-                    echo $phone['category'] . ': ' . $phone['phone'] . '<br>';
+            <th scope="row"><?= $value->getId() ?></th>
+            <td><?= $value->getName() ?></td>
+            <td><?php foreach ($value->getContactDetails() as $key => $phone) {
+                    echo $phone->getCategory()->getCategory() . ': ' . $phone->getPhone() . '<br>';
                 } ?></td>
-            <td><?= $value['description'] ?></td>
+            <td><?= $value->getDescription() ?></td>
             <td><a class="btn px-3 py-1 btn-success"
-                   href="/<?= $language->GetLanguage() ?>/admin/contact/edit/<?= $value['id'] ?>"><?= $language->GetVar('edit') ?></a>
+                   href="/<?= $language->GetLanguage() ?>/admin/contact/edit/<?= $value->getId() ?>"><?= $language->GetVar('edit') ?></a>
                 <a class="btn px-3 py-1 btn-danger"
-                   href="/<?= $language->GetLanguage() ?>/admin/contact/delete/<?= $value['id'] ?>"><?= $language->GetVar('delete') ?></a>
+                   href="/<?= $language->GetLanguage() ?>/admin/contact/delete/<?= $value->getId() ?>"><?= $language->GetVar('delete') ?></a>
             </td>
         </tr>
     <?php } ?>

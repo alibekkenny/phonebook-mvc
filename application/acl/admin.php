@@ -12,7 +12,10 @@ return [
 
     ],
     'admin' => [
-
+        'category',
+        'categoryAdd',
+        'categoryEdit',
+        'categoryDelete',
         'userEdit',
         'userDelete',
         'showUsersContacts',

@@ -47,6 +47,9 @@ class Language
 
     public function LoadLanguageValues()
     {
+        if ($this->language == "") {
+            $this->language = $this->default;
+        }
         $lang = require_once('application/config/languages/' . $this->language . '.php');
         $this->lang_vars = array_merge($this->lang_vars, $lang);
     }

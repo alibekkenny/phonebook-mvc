@@ -1,6 +1,6 @@
 <?php
 
-namespace entities;
+namespace repository;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,8 +14,8 @@ class PhoneCategory
     private int $id;
     #[ORM\Column(type: 'string')]
     private string $category;
-    #[ORM\OneToMany(targetEntity: ContactDetails::class, mappedBy: 'phone_category', cascade: ['ALL'], indexBy: 'contact_details')]
-    private Collection $contactDetails;
+//    #[ORM\OneToMany(targetEntity: ContactDetails::class, mappedBy: 'phone_category', cascade: ['ALL'], indexBy: 'contact_details')]
+//    private Collection $contactDetails;
 
     public function getId(): int
     {

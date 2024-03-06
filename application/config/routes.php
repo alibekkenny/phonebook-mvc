@@ -73,6 +73,22 @@ return [
         'controller' => 'admin',
         'action' => 'contactDelete',
     ],
+    '{lang:[a-z]+}/admin/category' => [
+        'controller' => 'admin',
+        'action' => 'category',
+    ],
+    '{lang:[a-z]+}/admin/category/add' => [
+        'controller' => 'admin',
+        'action' => 'categoryAdd',
+    ],
+    '{lang:[a-z]+}/admin/category/edit/{id:\d+}' => [
+        'controller' => 'admin',
+        'action' => 'categoryEdit',
+    ],
+    '{lang:[a-z]+}/admin/category/delete/{id:\d+}' => [
+        'controller' => 'admin',
+        'action' => 'categoryDelete',
+    ],
     '{lang:[a-z]+}/admin/logout' => [
         'controller' => 'admin',
         'action' => 'logout',

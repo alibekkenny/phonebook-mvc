@@ -25,7 +25,10 @@
                    class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-area fa-fw me-3"></i><span><?= $language->GetVar('contacts') ?></span>
                 </a>
-
+                <a href="/<?= $language->GetLanguage() ?>/admin/category"
+                   class="list-group-item list-group-item-action py-2 ripple">
+                    <i class="fas fa-chart-area fa-fw me-3"></i><span>Categories</span>
+                </a>
                 <a href="/<?= $language->GetLanguage() ?>/admin/logout"
                    class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-area fa-fw me-3"></i><span><svg xmlns="http://www.w3.org/2000/svg"

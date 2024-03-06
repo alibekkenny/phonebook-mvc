@@ -42,7 +42,7 @@ class User extends Model
 //        $vars = [
 //            'email' => $post['email'],
 //        ];
-        $loginData = $this->entityManager->getRepository(\entities\User::class)->findOneBy(['email' => $post['email']]);
+        $loginData = $this->entityManager->getRepository(\repository\User::class)->findOneBy(['email' => $post['email']]);
         if (empty($loginData)) {
             $this->error = "Email or password is incorrect!";
             return false;
@@ -57,15 +57,13 @@ class User extends Model
 
     public function getUsers()
     {
-        return $this->db->row('SELECT * FROM users');
+        return $this->entityManager->getRepository(\repository\User::class)->findAll();
+//        return $this->db->row('SELECT * FROM users');
     }
 
     public function getUserById($id)
     {
-        $params = [
-            'id' => $id,
-        ];
-        return $this->db->row('SELECT * FROM users WHERE id = :id', $params);
+        return $this->entityManager->getRepository(\repository\User::class)->findOneBy(['id' => $id]);
     }
 
     public function userCreate($post)
@@ -78,7 +76,7 @@ class User extends Model
 //        ];
 
 //        $this->db->query('INSERT INTO users VALUES(:id, :name, :email, :password)', $params);
-        $newUser = new \entities\User();
+        $newUser = new \repository\User();
         $newUser->setName($post['name']);
         $newUser->setEmail($post['email']);
         $newUser->setPassword($post['password']);
@@ -95,6 +93,6 @@ class User extends Model
 //        $entityManager->findOneBy(['email' => $post['email']]);
 //        var_dump($this->entityManager);
 
-        return $this->entityManager->getRepository(\entities\User::class)->findOneBy(['email' => $post['email']]);
+        return $this->entityManager->getRepository(\repository\User::class)->findOneBy(['email' => $post['email']]);
     }
 }

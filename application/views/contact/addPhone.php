@@ -19,8 +19,10 @@
                     <div class="form-group mt-2">
                         <label><?= $language->GetVar('category') ?></label>
                         <select class="form-select" aria-label="Default select example" name="phone_category">
-                            <?php foreach ($categories as $key => $value) { ?>
-                                <option value="<?= $value['id'] ?>"><?= $value['category'] ?></option>
+                            <?php foreach ($categories as $key => $value) {
+                                ?>
+
+                                <option value="<?= $value->getId() ?>"><?= $value->getCategory() ?></option>
                             <?php } ?>
                         </select>
                     </div>

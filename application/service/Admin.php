@@ -20,10 +20,7 @@ class Admin extends Model
 
     public function userExists($id)
     {
-        $params = [
-            'id' => $id,
-        ];
-        return $this->db->column('SELECT id FROM users WHERE id = :id', $params);
+        return $this->entityManager->getRepository(\repository\User::class)->findOneBy(['id' => $id]);;
     }
 
     public function userEdit($post)
@@ -39,17 +36,18 @@ class Admin extends Model
 
     public function userDelete($id)
     {
-        $params = [
-            'user_id' => $id,
-        ];
         $contactModel = new Contact;
-        $userContacts = $this->db->row('SELECT id FROM users_phone_book WHERE user_id = :user_id', $params);
-        foreach ($userContacts as $key => $value) {
-            $contactModel->deleteContact($value['id']);
+//        $userContacts = $this->db->row('SELECT id FROM users_phone_book WHERE user_id = :user_id', $params);
+        $user = $this->entityManager->getRepository(\repository\User::class)->findOneBy(['id' => $id]);
+//        echo $user->getId();
+
+        foreach ($user->getContacts() as $key => $value) {
+//            $contactModel->deleteContact($value['id']);
+            $contactModel->deleteContact($value->getId());
         }
-        $params = [
-            'id' => $id,
-        ];
-        return $this->db->query('DELETE FROM users WHERE id = :id', $params);
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
+        return $id;
+//        return $this->db->query('DELETE FROM users WHERE id = :id', $params);
     }
 }

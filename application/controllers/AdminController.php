@@ -59,7 +59,7 @@ class AdminController extends Controller
         $userModel = new User;
         $user_id = $this->route['id'];
         $vars = [
-            'user' => $userModel->getUserById($user_id)[0],
+            'user' => $userModel->getUserById($user_id),
         ];
         $this->view->render('Edit user', $vars);
     }
@@ -129,9 +129,10 @@ class AdminController extends Controller
     {
         $userModel = new User;
         $contactModel = new Contact;
-        $phone_book = $contactModel->getContactsByUserId($this->route['id']);
+        $user = $userModel->getUserById($this->route['id']);
+        $phone_book = $user->getContacts();
         $vars = [
-            'user' => $userModel->getUserById($this->route['id'])[0],
+            'user' => $user,
             'phone_book' => $phone_book,
         ];
         $this->view->render('User contacts', $vars);
@@ -151,5 +152,56 @@ class AdminController extends Controller
     {
         unset($_SESSION['admin']);
         $this->view->redirect('admin/login');
+    }
+
+    public function categoryAction()
+    {
+        $categoryModel = new PhoneCategory;
+        $categories = $categoryModel->getCategories();
+        $vars = [
+            'categories' => $categories,
+        ];
+        $this->view->render('Categories', $vars);
+    }
+
+    public function categoryEditAction()
+    {
+        $categoryModel = new PhoneCategory;
+        if (!empty($_POST)) {
+            if (!$categoryModel->categoryValidate($_POST)) {
+                $this->view->message('Error', $categoryModel->error);
+            }
+            $categoryModel->editCategory($this->route['id'], $_POST);
+            $this->view->location('admin/category');
+        }
+        $categoryModel = new PhoneCategory;
+        $category = $categoryModel->getCategoryById($this->route['id']);
+        $vars = [
+            'category' => $category,
+        ];
+        $this->view->render('Category', $vars);
+    }
+
+    public function categoryDeleteAction()
+    {
+        $categoryModel = new PhoneCategory;
+        if (empty($categoryModel->getCategoryById($this->route['id']))) {
+            $this->view->errorCode(404);
+        }
+        $categoryModel->deleteCategoryById($this->route['id']);
+        $this->view->redirect('admin/category');
+    }
+
+    public function categoryAddAction()
+    {
+        if (!empty($_POST)) {
+            $categoryModel = new PhoneCategory;
+            if (!$categoryModel->categoryValidate($_POST)) {
+                $this->view->message('Error', $categoryModel->error);
+            }
+            $categoryModel->addCategory($_POST);
+            $this->view->location('admin/category');
+        }
+        $this->view->render('New category');
     }
 }

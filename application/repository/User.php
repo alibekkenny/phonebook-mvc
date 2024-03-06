@@ -1,6 +1,6 @@
 <?php
 
-namespace entities;
+namespace repository;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,9 +30,14 @@ class User
         return $result;
     }
 
-    public function addContact(string $name, Contact $value): void
+    public function getContacts()
     {
-        $this->contacts[$name] = new Contact($name, $value, $this);
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $value): void
+    {
+        $this->contacts[] = $value;
     }
 
     public function getId(): int
